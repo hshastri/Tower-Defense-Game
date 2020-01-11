@@ -33,6 +33,7 @@ class TiledWindow(arcade.Window):
         self.enemy.textures = textures
         self.enemy_list.append(self.enemy)
 
+
     def on_draw(self):
         arcade.start_render()
         self.mapList.draw()
@@ -40,6 +41,9 @@ class TiledWindow(arcade.Window):
         self.enemy_list.draw()
 
     def update(self, delta_time: float):
+
+        self.enemy.center_x = self.enemy.center_x - 3.0
+
         self.enemy.update_animation()
 
 
