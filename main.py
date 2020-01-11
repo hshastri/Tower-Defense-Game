@@ -17,7 +17,6 @@ class TiledWindow(arcade.Window):
 
         self.start = 0.0
 
-        self.simplePhysics: arcade.PhysicsEngineSimple = None
 
     def setup(self):
         map = arcade.tilemap.read_tmx(str(self.mapLocation))
@@ -49,7 +48,11 @@ class TiledWindow(arcade.Window):
 
     def update(self, delta_time: float):
 
-        self.enemy.center_x = self.enemy.center_x - 0.5
+        if len(arcade.check_for_collision_with_list(self.enemy, self.wallList)) == 0:
+            self.enemy.center_x = self.enemy.center_x - 0.5
+            print("enemy collided!")
+        else:
+            self.enemy.center_x = self.enemy.center_x + 0
 
         if (time.time() - self.start >= 1.0):
             self.start = time.time()
@@ -68,13 +71,23 @@ class TiledWindow(arcade.Window):
             #enemy.center_x = enemy.center_x - 0.5
             self.enemy_list.append(enemy)
 
-
-        self.enemy_list.update()
-        self.enemy_list.move(-0.5, 0)
-
-
         for enemy in self.enemy_list:
             enemy.update_animation()
+            if len(arcade.check_for_collision_with_list(enemy, self.wallList)) == 0:
+                enemy.center_x = enemy.center_x - 0.5
+                #print("enemy collided!")
+            else:
+                enemy.center_x = enemy.center_x + 0
+
+
+        self.enemy_list.update()
+
+        #self.enemy_list.move(-0.5, 0)
+
+
+
+
+
 
 
 
