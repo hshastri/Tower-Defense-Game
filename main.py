@@ -19,6 +19,8 @@ class TiledWindow(arcade.Window):
         self.displayTower3 = None
         self.displayTower4 = None
         self.displayTowerList = None
+        self.towerList = None
+        self.currentTower = None
         self.start = 0.0
 
 
@@ -26,6 +28,8 @@ class TiledWindow(arcade.Window):
         map = arcade.tilemap.read_tmx(str(self.mapLocation))
         self.mapList = arcade.tilemap.process_layer(map, 'traverse', 1)
         self.wallList = arcade.tilemap.process_layer(map, 'walls', 1)
+
+        self.towerList = arcade.SpriteList()
 
         self.displayTowerList = arcade.SpriteList()
 
@@ -73,9 +77,35 @@ class TiledWindow(arcade.Window):
         self.wallList.draw()
         self.enemy_list.draw()
         self.displayTowerList.draw()
+        self.towerList.draw()
 
         arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 12)
         arcade.draw_text(" [A]              [S]              [D]                 [F]", 25 * 4, 1.5 * 32, arcade.color.BLACK, 12)
+
+    def on_key_press(self, key, modifiers):
+        # Called everytime a key is pressed.
+
+        if key == arcade.key.A:
+            tower1 = arcade.Sprite(pathlib.Path.cwd()/'Assets'/'tower1.png')
+            self.currentTower = tower1
+            self.towerList.append(tower1)
+        elif key == arcade.key.S:
+            tower2 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'towerTwo.png')
+            self.currentTower = tower2
+            self.towerList.append(tower2)
+        elif key == arcade.key.D:
+            tower3 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower3.png')
+            self.currentTower = tower3
+            self.towerList.append(tower3)
+        elif key == arcade.key.F:
+            tower4 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower4.png')
+            self.currentTower = tower4
+            self.towerList.append(tower4)
+
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
+        if button == arcade.MOUSE_BUTTON_LEFT:
+            self.currentTower.center_x = x
+            self.currentTower.center_y = y
 
     def update(self, delta_time: float):
 
@@ -114,12 +144,6 @@ class TiledWindow(arcade.Window):
         self.enemy_list.update()
 
         #self.enemy_list.move(-0.5, 0)
-
-
-
-
-
-
 
 
 def main():
