@@ -14,7 +14,11 @@ class TiledWindow(arcade.Window):
         self.wallList = None
         self.enemy: arcade.AnimatedTimeBasedSprite = None
         self.enemy_list: arcade.SpriteList = None
-
+        self.displayTower1 = None
+        self.displayTower2 = None
+        self.displayTower3 = None
+        self.displayTower4 = None
+        self.displayTowerList = None
         self.start = 0.0
 
 
@@ -22,6 +26,29 @@ class TiledWindow(arcade.Window):
         map = arcade.tilemap.read_tmx(str(self.mapLocation))
         self.mapList = arcade.tilemap.process_layer(map, 'traverse', 1)
         self.wallList = arcade.tilemap.process_layer(map, 'walls', 1)
+
+        self.displayTowerList = arcade.SpriteList()
+
+        self.displayTower1 = arcade.Sprite(pathlib.Path.cwd()/'Assets'/'tower1.png')
+        self.displayTower2 = arcade.Sprite(pathlib.Path.cwd()/'Assets'/'towerTwo.png')
+        self.displayTower3 = arcade.Sprite(pathlib.Path.cwd()/'Assets'/'tower3.png')
+        self.displayTower4 = arcade.Sprite(pathlib.Path.cwd()/'Assets'/'tower4.png')
+
+        self.displayTowerList.append(self.displayTower1)
+        self.displayTowerList.append(self.displayTower2)
+        self.displayTowerList.append(self.displayTower3)
+        self.displayTowerList.append(self.displayTower4)
+
+        y_pos = 3 * 32
+        x_pos = 25
+        count = 1
+        for displayTower in self.displayTowerList:
+            displayTower.center_y = y_pos
+            displayTower.center_x = x_pos + 85 * count
+            count+=1
+
+
+
 
         self.start = time.time()
 
@@ -45,6 +72,7 @@ class TiledWindow(arcade.Window):
         self.mapList.draw()
         self.wallList.draw()
         self.enemy_list.draw()
+        self.displayTowerList.draw()
 
     def update(self, delta_time: float):
 
