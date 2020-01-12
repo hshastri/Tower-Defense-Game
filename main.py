@@ -74,6 +74,9 @@ class TiledWindow(arcade.Window):
         self.enemy_list.draw()
         self.displayTowerList.draw()
 
+        arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 12)
+        arcade.draw_text(" [A]              [S]              [D]                 [F]", 25 * 4, 1.5 * 32, arcade.color.BLACK, 12)
+
     def update(self, delta_time: float):
 
         if len(arcade.check_for_collision_with_list(self.enemy, self.wallList)) == 0:
