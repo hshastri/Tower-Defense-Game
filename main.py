@@ -45,7 +45,7 @@ class TiledWindow(arcade.Window):
         for displayTower in self.displayTowerList:
             displayTower.center_y = y_pos
             displayTower.center_x = x_pos + 85 * count
-            count+=1
+            count += 1
 
 
 
