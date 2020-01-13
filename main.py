@@ -14,14 +14,17 @@ class TiledWindow(arcade.Window):
         self.wallList = None
         self.enemy: arcade.AnimatedTimeBasedSprite = None
         self.enemy_list: arcade.SpriteList = None
+        self.enemyMoveSpeed = 0.5
         self.displayTower1 = None
         self.displayTower2 = None
         self.displayTower3 = None
         self.displayTower4 = None
         self.displayTowerList = None
         self.towerList = None
-        self.currentTower = None
         self.start = 0.0
+
+        self.townHealth = 10000
+        self.currency = 300
 
 
     def setup(self):
@@ -51,9 +54,6 @@ class TiledWindow(arcade.Window):
             displayTower.center_x = x_pos + 85 * count
             count += 1
 
-
-
-
         self.start = time.time()
 
         path = pathlib.Path.cwd() /'Assets'/ 'Archive' / 'walk'
@@ -79,8 +79,10 @@ class TiledWindow(arcade.Window):
         self.displayTowerList.draw()
         self.towerList.draw()
 
-        arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 12)
-        arcade.draw_text(" [A]              [S]              [D]                 [F]", 25 * 4, 1.5 * 32, arcade.color.BLACK, 12)
+        string = "Town Health: " + str(self.townHealth) + "; Currency earned: " + str(self.currency)
+        arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 10)
+        arcade.draw_text(" [A]              [S]              [D]                 [F]", 25 * 4, 1.5 * 32, arcade.color.BLACK, 10)
+        arcade.draw_text(string, 25 * 3, 25, arcade.color.RED, 15)
 
     def on_key_press(self, key, modifiers):
         # Called everytime a key is pressed.
@@ -110,7 +112,7 @@ class TiledWindow(arcade.Window):
     def update(self, delta_time: float):
 
         if len(arcade.check_for_collision_with_list(self.enemy, self.wallList)) == 0:
-            self.enemy.center_x = self.enemy.center_x - 0.5
+            self.enemy.center_x = self.enemy.center_x - self.enemyMoveSpeed
             print("enemy collided!")
         else:
             self.enemy.center_x = self.enemy.center_x + 0
@@ -135,16 +137,12 @@ class TiledWindow(arcade.Window):
         for enemy in self.enemy_list:
             enemy.update_animation()
             if len(arcade.check_for_collision_with_list(enemy, self.wallList)) == 0:
-                enemy.center_x = enemy.center_x - 0.5
+                enemy.center_x = enemy.center_x - self.enemyMoveSpeed
                 #print("enemy collided!")
             else:
                 enemy.center_x = enemy.center_x + 0
 
-
         self.enemy_list.update()
-
-        #self.enemy_list.move(-0.5, 0)
-
 
 def main():
     window: TiledWindow = TiledWindow()
