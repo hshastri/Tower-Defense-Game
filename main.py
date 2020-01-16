@@ -2,6 +2,7 @@ import arcade
 import pathlib
 import time
 import random
+import math
 
 WIDTH = 15 * 32
 HEIGHT = 15 * 32
@@ -24,10 +25,18 @@ class TiledWindow(arcade.Window):
         self.tower2List = None
         self.tower3List = None
         self.tower4List = None
+        self.bulletList = None
         self.start = 0.0
-
+        self.frame = 0
         self.townHealth = 10000
         self.currency = 300
+
+
+        self.magnumShot = arcade.sound.load_sound('/Users/apple/Desktop/TheGame/Assets/magnum.wav')
+
+        self.nineShot = arcade.sound.load_sound(pathlib.Path.cwd() / 'Assets' / 'nine.wav')
+
+        self.shotGunShot = arcade.sound.load_sound(pathlib.Path.cwd() / 'Assets' / 'shotgun_blast.wav')
 
 
     def setup(self):
@@ -39,6 +48,8 @@ class TiledWindow(arcade.Window):
         self.tower2List = arcade.SpriteList()
         self.tower3List = arcade.SpriteList()
         self.tower4List = arcade.SpriteList()
+
+        self.bulletList = arcade.SpriteList()
 
         self.displayTowerList = arcade.SpriteList()
 
@@ -87,6 +98,7 @@ class TiledWindow(arcade.Window):
         self.tower2List.draw()
         self.tower3List.draw()
         self.tower4List.draw()
+        self.bulletList.draw()
 
         string = "Town Health: " + str(self.townHealth) + "; Currency earned: " + str(self.currency)
         arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 10)
@@ -128,6 +140,8 @@ class TiledWindow(arcade.Window):
 
     def update(self, delta_time: float):
 
+        self.frame += 1
+
         if len(arcade.check_for_collision_with_list(self.enemy, self.wallList)) == 0:
             self.enemy.center_x = self.enemy.center_x - self.enemyMoveSpeed
             print("enemy collided!")
@@ -165,6 +179,48 @@ class TiledWindow(arcade.Window):
                         if self.distance_between_sprites(enemy, tower) <= 50.0:
                             enemy.center_x = enemy.center_x + 1.0
 
+        if len(self.tower3List) != 0:
+            if len(self.enemy_list) >= len(self.tower3List):
+                for enemy in self.enemy_list:
+                    for tower in self.tower3List:
+                        if self.distance_between_sprites(enemy, tower) <= 25.0:
+                            x = enemy.center_x - tower.center_x
+                            y = enemy.center_y - tower.center_y
+                            angle = math.atan2(y, x)
+                            tower.angle = math.degrees(angle) - 90
+                            if self.frame % 60 == 0 and self.checkBounds(enemy):
+                                bullet = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'bullet.png')
+                                bullet.center_x = tower.center_x
+                                bullet.center_y = tower.center_y
+                                bullet.angle = math.degrees(angle)
+                                bullet.change_x = math.cos(angle) * 20
+                                bullet.change_y = math.sin(angle) * 20
+                                self.bulletList.append(bullet)
+                                arcade.play_sound(self.magnumShot)
+            elif len(self.enemy_list) < len(self.tower3List):
+                for tower in self.tower3List:
+                    for enemy in self.enemy_list:
+                        if self.distance_between_sprites(enemy, tower) <= 25.0:
+                            x = enemy.center_x - tower.center_x
+                            y = enemy.center_y - tower.center_y
+                            angle = math.atan2(y, x)
+                            tower.angle = math.degrees(angle) - 90
+                            if self.frame % 60 == 0 and self.checkBounds(enemy):
+                                bullet = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'bullet.png')
+                                bullet.center_x = tower.center_x
+                                bullet.center_y = tower.center_y
+                                bullet.angle = math.degrees(angle)
+                                bullet.change_x = math.cos(angle) * 20
+                                bullet.change_y = math.sin(angle) * 20
+                                self.bulletList.append(bullet)
+                                arcade.play_sound(self.magnumShot)
+        for bullet in self.bulletList:
+            if bullet.top < 0:
+                bullet.remove_from_sprite_lists()
+
+        self.bulletList.update()
+
+
         for enemy in self.enemy_list:
             enemy.update_animation()
             if len(arcade.check_for_collision_with_list(enemy, self.wallList)) == 0:
@@ -174,8 +230,11 @@ class TiledWindow(arcade.Window):
 
         self.enemy_list.update()
 
-
-
+    def checkBounds(self, sprite: arcade.AnimatedTimeBasedSprite):
+        if sprite.center_x >= 32 and sprite.center_y >= 32 and sprite.center_x <= 448 and sprite.center_y <= 478:
+            return True
+        else:
+            return False
 
 
 def main():
