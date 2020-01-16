@@ -20,7 +20,10 @@ class TiledWindow(arcade.Window):
         self.displayTower3 = None
         self.displayTower4 = None
         self.displayTowerList = None
-        self.towerList = None
+        self.tower1List = None
+        self.tower2List = None
+        self.tower3List = None
+        self.tower4List = None
         self.start = 0.0
 
         self.townHealth = 10000
@@ -32,7 +35,10 @@ class TiledWindow(arcade.Window):
         self.mapList = arcade.tilemap.process_layer(map, 'traverse', 1)
         self.wallList = arcade.tilemap.process_layer(map, 'walls', 1)
 
-        self.towerList = arcade.SpriteList()
+        self.tower1List = arcade.SpriteList()
+        self.tower2List = arcade.SpriteList()
+        self.tower3List = arcade.SpriteList()
+        self.tower4List = arcade.SpriteList()
 
         self.displayTowerList = arcade.SpriteList()
 
@@ -77,7 +83,10 @@ class TiledWindow(arcade.Window):
         self.wallList.draw()
         self.enemy_list.draw()
         self.displayTowerList.draw()
-        self.towerList.draw()
+        self.tower1List.draw()
+        self.tower2List.draw()
+        self.tower3List.draw()
+        self.tower4List.draw()
 
         string = "Town Health: " + str(self.townHealth) + "; Currency earned: " + str(self.currency)
         arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 10)
@@ -90,24 +99,32 @@ class TiledWindow(arcade.Window):
         if key == arcade.key.A:
             tower1 = arcade.Sprite(pathlib.Path.cwd()/'Assets'/'tower1.png')
             self.currentTower = tower1
-            self.towerList.append(tower1)
+            self.tower1List.append(tower1)
         elif key == arcade.key.S:
             tower2 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'towerTwo.png')
             self.currentTower = tower2
-            self.towerList.append(tower2)
+            self.tower2List.append(tower2)
         elif key == arcade.key.D:
             tower3 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower3.png')
             self.currentTower = tower3
-            self.towerList.append(tower3)
+            self.tower3List.append(tower3)
         elif key == arcade.key.F:
             tower4 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower4.png')
             self.currentTower = tower4
-            self.towerList.append(tower4)
+            self.tower4List.append(tower4)
+
+    def on_key_release(self, symbol: int, modifiers: int):
+        pass
 
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
         if button == arcade.MOUSE_BUTTON_LEFT:
             self.currentTower.center_x = x
             self.currentTower.center_y = y
+
+    def distance_between_sprites(self, sprite1: arcade.AnimatedTimeBasedSprite, sprite2: arcade.Sprite):
+        x_diff = (sprite1.center_x - sprite2.center_x) ** 2
+        y_diff = (sprite1.center_y - sprite2.center_y) ** 2
+        return (x_diff + y_diff) ** (1/2)
 
     def update(self, delta_time: float):
 
@@ -138,11 +155,28 @@ class TiledWindow(arcade.Window):
             enemy.update_animation()
             if len(arcade.check_for_collision_with_list(enemy, self.wallList)) == 0:
                 enemy.center_x = enemy.center_x - self.enemyMoveSpeed
-                #print("enemy collided!")
             else:
                 enemy.center_x = enemy.center_x + 0
 
+
+        if len(self.tower1List) != 0:
+            if len(self.enemy_list) >= len(self.tower1List):
+                for enemy in self.enemy_list:
+                    for tower in self.tower1List:
+                        if self.distance_between_sprites(enemy, tower) < 50.0:
+                            enemy.center_x = enemy.center_x - self.enemyMoveSpeed - 0.2
+            elif len(self.enemy_list) < len(self.tower1List):
+                for tower in self.tower1List:
+                    for enemy in self.enemy_list:
+                        if self.distance_between_sprites(enemy, tower) < 50.0:
+                            enemy.center_x = enemy.center_x - self.enemyMoveSpeed - 0.2
+
+
         self.enemy_list.update()
+
+
+
+
 
 def main():
     window: TiledWindow = TiledWindow()
