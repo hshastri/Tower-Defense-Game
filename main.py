@@ -14,7 +14,7 @@ class TiledWindow(arcade.Window):
         self.wallList = None
         self.enemy: arcade.AnimatedTimeBasedSprite = None
         self.enemy_list: arcade.SpriteList = None
-        self.enemyMoveSpeed = 0.5
+        self.enemyMoveSpeed = 1.0
         self.displayTower1 = None
         self.displayTower2 = None
         self.displayTower3 = None
@@ -151,26 +151,26 @@ class TiledWindow(arcade.Window):
             #enemy.center_x = enemy.center_x - 0.5
             self.enemy_list.append(enemy)
 
+
+        if len(self.tower1List) != 0:
+            if len(self.enemy_list) >= len(self.tower1List):
+                for enemy in self.enemy_list:
+                    for tower in self.tower1List:
+                        if self.distance_between_sprites(enemy, tower) <= 50.0:
+                            enemy.center_x = enemy.center_x - 10.0
+
+            elif len(self.enemy_list) < len(self.tower1List):
+                for tower in self.tower1List:
+                    for enemy in self.enemy_list:
+                        if self.distance_between_sprites(enemy, tower) <= 50.0:
+                            enemy.center_x = enemy.center_x - 10.0
+
         for enemy in self.enemy_list:
             enemy.update_animation()
             if len(arcade.check_for_collision_with_list(enemy, self.wallList)) == 0:
                 enemy.center_x = enemy.center_x - self.enemyMoveSpeed
             else:
                 enemy.center_x = enemy.center_x + 0
-
-
-        if len(self.tower1List) != 0:
-            if len(self.enemy_list) >= len(self.tower1List):
-                for enemy in self.enemy_list:
-                    for tower in self.tower1List:
-                        if self.distance_between_sprites(enemy, tower) < 50.0:
-                            enemy.center_x = enemy.center_x - self.enemyMoveSpeed - 0.2
-            elif len(self.enemy_list) < len(self.tower1List):
-                for tower in self.tower1List:
-                    for enemy in self.enemy_list:
-                        if self.distance_between_sprites(enemy, tower) < 50.0:
-                            enemy.center_x = enemy.center_x - self.enemyMoveSpeed - 0.2
-
 
         self.enemy_list.update()
 
