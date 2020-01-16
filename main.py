@@ -157,13 +157,13 @@ class TiledWindow(arcade.Window):
                 for enemy in self.enemy_list:
                     for tower in self.tower1List:
                         if self.distance_between_sprites(enemy, tower) <= 50.0:
-                            enemy.center_x = enemy.center_x - 10.0
+                            enemy.change_x = 0.2
 
             elif len(self.enemy_list) < len(self.tower1List):
                 for tower in self.tower1List:
                     for enemy in self.enemy_list:
                         if self.distance_between_sprites(enemy, tower) <= 50.0:
-                            enemy.center_x = enemy.center_x - 10.0
+                            enemy.center_x = enemy.center_x + 1.0
 
         for enemy in self.enemy_list:
             enemy.update_animation()
