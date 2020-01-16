@@ -30,8 +30,8 @@ class TiledWindow(arcade.Window):
         self.frame = 0
         self.townHealth = 10000
         self.currency = 300
-        self.damage = 0
-
+        self.enemiesKilled = 0
+        self.tower3Damage = 25
 
         self.magnumShot = arcade.sound.load_sound('/Users/apple/Desktop/TheGame/Assets/magnum.wav')
 
@@ -181,10 +181,11 @@ class TiledWindow(arcade.Window):
                             enemy.center_x = enemy.center_x + 1.0
 
         if len(self.tower3List) != 0:
+
             if len(self.enemy_list) >= len(self.tower3List):
                 for enemy in self.enemy_list:
                     for tower in self.tower3List:
-                        if self.distance_between_sprites(enemy, tower) <= 25.0:
+                        if self.distance_between_sprites(enemy, tower) <= 50.0:
                             x = enemy.center_x - tower.center_x
                             y = enemy.center_y - tower.center_y
                             angle = math.atan2(y, x)
@@ -201,7 +202,7 @@ class TiledWindow(arcade.Window):
             elif len(self.enemy_list) < len(self.tower3List):
                 for tower in self.tower3List:
                     for enemy in self.enemy_list:
-                        if self.distance_between_sprites(enemy, tower) <= 25.0:
+                        if self.distance_between_sprites(enemy, tower) <= 50.0:
                             x = enemy.center_x - tower.center_x
                             y = enemy.center_y - tower.center_y
                             angle = math.atan2(y, x)
@@ -223,11 +224,26 @@ class TiledWindow(arcade.Window):
 
 
         for enemy in self.enemy_list:
+            enemyHealth: int = 25
             enemy.update_animation()
             if len(arcade.check_for_collision_with_list(enemy, self.wallList)) == 0:
                 enemy.center_x = enemy.center_x - self.enemyMoveSpeed
             else:
                 enemy.center_x = enemy.center_x + 0
+
+            enemyGetsHit = arcade.check_for_collision_with_list(enemy, self.bulletList)
+            if enemyGetsHit:
+                print("what the fuck")
+                enemyHealth = enemyHealth - self.tower3Damage
+                if enemyHealth <= 0:
+                    print("enemy killed")
+                    enemy.kill()
+                    self.enemiesKilled += 1
+                    self.currency += 50
+                    for bullet in enemyGetsHit:
+                        bullet.kill()
+
+        self.bulletList.update()
 
         self.enemy_list.update()
 
