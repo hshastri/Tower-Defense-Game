@@ -195,8 +195,8 @@ class TiledWindow(arcade.Window):
                                 bullet.center_x = tower.center_x
                                 bullet.center_y = tower.center_y
                                 bullet.angle = math.degrees(angle)
-                                bullet.change_x = math.cos(angle) * 20
-                                bullet.change_y = math.sin(angle) * 20
+                                bullet.change_x = math.cos(angle) * 10
+                                bullet.change_y = math.sin(angle) * 10
                                 self.bulletList.append(bullet)
                                 arcade.play_sound(self.magnumShot)
             elif len(self.enemy_list) < len(self.tower3List):
@@ -212,8 +212,8 @@ class TiledWindow(arcade.Window):
                                 bullet.center_x = tower.center_x
                                 bullet.center_y = tower.center_y
                                 bullet.angle = math.degrees(angle)
-                                bullet.change_x = math.cos(angle) * 20
-                                bullet.change_y = math.sin(angle) * 20
+                                bullet.change_x = math.cos(angle) * 10
+                                bullet.change_y = math.sin(angle) * 10
                                 self.bulletList.append(bullet)
                                 arcade.play_sound(self.magnumShot)
         for bullet in self.bulletList:
@@ -241,7 +241,9 @@ class TiledWindow(arcade.Window):
                     self.enemiesKilled += 1
                     self.currency += 50
                     for bullet in enemyGetsHit:
-                        bullet.kill()
+                        if bullet.center_x == enemy.center_x and bullet.center_y == enemy.center_y:
+                            bullet.kill()
+
 
         self.bulletList.update()
 
