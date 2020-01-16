@@ -30,6 +30,7 @@ class TiledWindow(arcade.Window):
         self.frame = 0
         self.townHealth = 10000
         self.currency = 300
+        self.damage = 0
 
 
         self.magnumShot = arcade.sound.load_sound('/Users/apple/Desktop/TheGame/Assets/magnum.wav')
