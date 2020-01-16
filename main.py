@@ -15,7 +15,7 @@ class TiledWindow(arcade.Window):
         self.wallList = None
         self.enemy: arcade.AnimatedTimeBasedSprite = None
         self.enemy_list: arcade.SpriteList = None
-        self.enemyMoveSpeed = 1.1
+        self.enemyMoveSpeed = 1.0
         self.displayTower1 = None
         self.displayTower2 = None
         self.displayTower3 = None
