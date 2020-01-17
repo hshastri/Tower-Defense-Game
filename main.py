@@ -30,7 +30,7 @@ class TiledWindow(arcade.Window):
         self.start = 0.0
         self.frame = 0
         self.townHealth = 10000
-        self.currency = 400
+        self.currency = 700
         self.enemiesKilled = 0
         self.tower3Damage = 25
         self.tower4Damage = 25
@@ -104,10 +104,10 @@ class TiledWindow(arcade.Window):
         self.bulletList.draw()
         self.bulletList2.draw()
 
-        string = "Town Health: " + str(self.townHealth) + "; Currency earned: " + str(self.currency)
+        string = "Town Health: " + str(self.townHealth) + "; Currency earned: " + str(self.currency) + "; Enemies killed: " + str(self.enemiesKilled)
         arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 10)
         arcade.draw_text(" [A]              [S]              [D]                 [F]", 25 * 4, 1.5 * 32, arcade.color.BLACK, 10)
-        arcade.draw_text(string, 25 * 3, 25, arcade.color.RED, 15)
+        arcade.draw_text(string, 25 * 2, 25, arcade.color.RED, 12)
 
     def on_key_press(self, key, modifiers):
         # Called everytime a key is pressed.
@@ -116,18 +116,22 @@ class TiledWindow(arcade.Window):
             tower1 = arcade.Sprite(pathlib.Path.cwd()/'Assets'/'tower1.png')
             self.currentTower = tower1
             self.tower1List.append(tower1)
+            self.currency -= 100
         elif key == arcade.key.S and self.currency >= 200:
             tower2 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'towerTwo.png')
             self.currentTower = tower2
             self.tower2List.append(tower2)
+            self.currency -= 200
         elif key == arcade.key.D and self.currency >= 300:
             tower3 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower3.png')
             self.currentTower = tower3
             self.tower3List.append(tower3)
+            self.currency -= 300
         elif key == arcade.key.F and self.currency >= 400:
             tower4 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower4.png')
             self.currentTower = tower4
             self.tower4List.append(tower4)
+            self.currency -= 400
 
     def on_key_release(self, symbol: int, modifiers: int):
         pass
@@ -176,11 +180,13 @@ class TiledWindow(arcade.Window):
                         if self.distance_between_sprites(enemy, tower) <= 50.0:
                             enemy.change_x = 0.2
 
+
             elif len(self.enemy_list) < len(self.tower1List):
                 for tower in self.tower1List:
                     for enemy in self.enemy_list:
                         if self.distance_between_sprites(enemy, tower) <= 50.0:
                             enemy.change_x = 0.2
+
 
         if len(self.tower2List) != 0:
             if len(self.enemy_list) >= len(self.tower2List):
@@ -292,6 +298,11 @@ class TiledWindow(arcade.Window):
                 enemy.center_x = enemy.center_x - self.enemyMoveSpeed
             else:
                 enemy.center_x = enemy.center_x + 0
+
+            if enemy.center_x <= 0:
+                self.townHealth -= 100
+                enemy.kill()
+                continue
 
             enemyGetsHit = arcade.check_for_collision_with_list(enemy, self.bulletList)
             enemyGetsHit2 = arcade.check_for_collision_with_list(enemy, self.bulletList2)
