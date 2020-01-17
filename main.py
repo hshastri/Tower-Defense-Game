@@ -15,7 +15,7 @@ class TiledWindow(arcade.Window):
         self.wallList = None
         self.enemy: arcade.AnimatedTimeBasedSprite = None
         self.enemy_list: arcade.SpriteList = None
-        self.enemyMoveSpeed = 1.0
+        self.enemyMoveSpeed = 1.1
         self.displayTower1 = None
         self.displayTower2 = None
         self.displayTower3 = None
@@ -30,7 +30,7 @@ class TiledWindow(arcade.Window):
         self.start = 0.0
         self.frame = 0
         self.townHealth = 10000
-        self.currency = 300
+        self.currency = 400
         self.enemiesKilled = 0
         self.tower3Damage = 25
         self.tower4Damage = 25
@@ -112,19 +112,19 @@ class TiledWindow(arcade.Window):
     def on_key_press(self, key, modifiers):
         # Called everytime a key is pressed.
 
-        if key == arcade.key.A:
+        if key == arcade.key.A and self.currency >= 100:
             tower1 = arcade.Sprite(pathlib.Path.cwd()/'Assets'/'tower1.png')
             self.currentTower = tower1
             self.tower1List.append(tower1)
-        elif key == arcade.key.S:
+        elif key == arcade.key.S and self.currency >= 200:
             tower2 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'towerTwo.png')
             self.currentTower = tower2
             self.tower2List.append(tower2)
-        elif key == arcade.key.D:
+        elif key == arcade.key.D and self.currency >= 300:
             tower3 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower3.png')
             self.currentTower = tower3
             self.tower3List.append(tower3)
-        elif key == arcade.key.F:
+        elif key == arcade.key.F and self.currency >= 400:
             tower4 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower4.png')
             self.currentTower = tower4
             self.tower4List.append(tower4)
@@ -148,7 +148,6 @@ class TiledWindow(arcade.Window):
 
         if len(arcade.check_for_collision_with_list(self.enemy, self.wallList)) == 0:
             self.enemy.center_x = self.enemy.center_x - self.enemyMoveSpeed
-            print("enemy collided!")
         else:
             self.enemy.center_x = self.enemy.center_x + 0
 
@@ -181,7 +180,7 @@ class TiledWindow(arcade.Window):
                 for tower in self.tower1List:
                     for enemy in self.enemy_list:
                         if self.distance_between_sprites(enemy, tower) <= 50.0:
-                            enemy.center_x = enemy.center_x + 1.0
+                            enemy.change_x = 0.2
 
         if len(self.tower2List) != 0:
             if len(self.enemy_list) >= len(self.tower2List):
@@ -205,7 +204,7 @@ class TiledWindow(arcade.Window):
             if len(self.enemy_list) >= len(self.tower3List):
                 for enemy in self.enemy_list:
                     for tower in self.tower3List:
-                        if self.distance_between_sprites(enemy, tower) <= 25.0:
+                        if self.distance_between_sprites(enemy, tower) <= 50.0:
                             x = enemy.center_x - tower.center_x
                             y = enemy.center_y - tower.center_y
                             angle = math.atan2(y, x)
@@ -222,7 +221,7 @@ class TiledWindow(arcade.Window):
             elif len(self.enemy_list) < len(self.tower3List):
                 for tower in self.tower3List:
                     for enemy in self.enemy_list:
-                        if self.distance_between_sprites(enemy, tower) <= 25.0:
+                        if self.distance_between_sprites(enemy, tower) <= 50.0:
                             x = enemy.center_x - tower.center_x
                             y = enemy.center_y - tower.center_y
                             angle = math.atan2(y, x)
@@ -242,7 +241,7 @@ class TiledWindow(arcade.Window):
             if len(self.enemy_list) >= len(self.tower4List):
                 for enemy in self.enemy_list:
                     for tower in self.tower4List:
-                        if self.distance_between_sprites(enemy, tower) <= 50.0:
+                        if self.distance_between_sprites(enemy, tower) <= 100.0:
                             x = enemy.center_x - tower.center_x
                             y = enemy.center_y - tower.center_y
                             angle = math.atan2(y, x)
@@ -259,7 +258,7 @@ class TiledWindow(arcade.Window):
             elif len(self.enemy_list) < len(self.tower4List):
                 for tower in self.tower4List:
                     for enemy in self.enemy_list:
-                        if self.distance_between_sprites(enemy, tower) <= 50.0:
+                        if self.distance_between_sprites(enemy, tower) <= 100.0:
                             x = enemy.center_x - tower.center_x
                             y = enemy.center_y - tower.center_y
                             angle = math.atan2(y, x)
