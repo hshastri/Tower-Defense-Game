@@ -34,6 +34,7 @@ class TiledWindow(arcade.Window):
         self.enemiesKilled = 0
         self.tower3Damage = 25
         self.tower4Damage = 25
+        self.isGameOver = False
         self.magnumShot = arcade.sound.load_sound('/Users/apple/Desktop/TheGame/Assets/magnum.wav')
 
         #self.nineShot = arcade.sound.load_sound(pathlib.Path.cwd() / 'Assets' / 'nine.wav')
@@ -104,6 +105,11 @@ class TiledWindow(arcade.Window):
         self.bulletList.draw()
         self.bulletList2.draw()
 
+        if self.isGameOver == True:
+            string1 = "Game Over! Score: " + str(self.enemiesKilled)
+            print("Game Over")
+            arcade.draw_text(string1, WIDTH // 2 - 100, HEIGHT // 2, arcade.color.BLACK, 20)
+
         string = "Town Health: " + str(self.townHealth) + "; Currency earned: " + str(self.currency) + "; Enemies killed: " + str(self.enemiesKilled)
         arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 10)
         arcade.draw_text(" [A]              [S]              [D]                 [F]", 25 * 4, 1.5 * 32, arcade.color.BLACK, 10)
@@ -149,6 +155,10 @@ class TiledWindow(arcade.Window):
     def update(self, delta_time: float):
 
         self.frame += 1
+
+        if self.isGameOver:
+            time.sleep(20)
+            arcade.close_window()
 
         if len(arcade.check_for_collision_with_list(self.enemy, self.wallList)) == 0:
             self.enemy.center_x = self.enemy.center_x - self.enemyMoveSpeed
@@ -327,6 +337,9 @@ class TiledWindow(arcade.Window):
                     for bullet2 in enemyGetsHit2:
                         if bullet2.center_x == enemy.center_x and bullet2.center_y == enemy.center_y:
                             bullet2.kill()
+
+        if self.townHealth <= 0:
+            self.isGameOver = True
 
 
         self.bulletList.update()
