@@ -31,7 +31,7 @@ class TiledWindow(arcade.Window):
         self.bulletList2 = None
         self.start = 0.0
         self.frame = 0
-        self.townHealth = 10000
+        self.townHealth = 1000
         self.currency = 200
         self.enemiesKilled = 0
         self.tower3Damage = 25
