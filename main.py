@@ -31,8 +31,8 @@ class TiledWindow(arcade.Window):
         self.bulletList2 = None
         self.start = 0.0
         self.frame = 0
-        self.townHealth = 1000
-        self.currency = 200
+        self.townHealth = 10000
+        self.currency = 350
         self.enemiesKilled = 0
         self.tower3Damage = 25
         self.tower4Damage = 25
@@ -216,7 +216,7 @@ class TiledWindow(arcade.Window):
                         if self.distance_between_sprites(enemy, tower) <= 10.0:
                             enemy.kill()
                             self.enemiesKilled += 1
-                            self.currency += 25
+                            self.currency += 75
 
             elif len(self.enemy_list) < len(self.tower2List):
                 for tower in self.tower2List:
@@ -224,7 +224,7 @@ class TiledWindow(arcade.Window):
                         if self.distance_between_sprites(enemy, tower) <= 10.0:
                             enemy.kill()
                             self.enemiesKilled += 1
-                            self.currency += 25
+                            self.currency += 75
 
         if len(self.tower3List) != 0:
 
