@@ -32,7 +32,7 @@ class TiledWindow(arcade.Window):
         self.start = 0.0
         self.frame = 0
         self.townHealth = 10000
-        self.currency = 400
+        self.currency = 200
         self.enemiesKilled = 0
         self.tower3Damage = 25
         self.tower4Damage = 25
@@ -109,10 +109,16 @@ class TiledWindow(arcade.Window):
 
 
 
-        if self.isGameOver == True:
+        if self.isGameOver == True and self.enemiesKilled < 60:
             string1 = "Game Over! Score: " + str(self.enemiesKilled)
             print("Game Over")
             arcade.draw_text(string1, WIDTH // 2 - 100, HEIGHT // 2, arcade.color.BLACK, 20)
+
+        elif self.isGameOver == True and self.enemiesKilled >= 60:
+            string = "You WON! Score: " + str(self.enemiesKilled)
+            print("Game Over")
+            arcade.draw_text(string, WIDTH // 2 - 100, HEIGHT // 2, arcade.color.BLACK, 20)
+
 
         string = "Town Health: " + str(self.townHealth) + "; Currency earned: " + str(self.currency) + "; Enemies killed: " + str(self.enemiesKilled)
         arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 10)
@@ -355,6 +361,9 @@ class TiledWindow(arcade.Window):
             mapLayer = arcade.tilemap.read_tmx(str(self.mapLocation3))
             self.mapList = arcade.tilemap.process_layer(mapLayer, 'traverse', 1)
             self.wallList = arcade.tilemap.process_layer(mapLayer, 'walls', 1)
+
+        if self.enemiesKilled >= 60:
+            self.isGameOver = True
 
         self.bulletList.update()
 
