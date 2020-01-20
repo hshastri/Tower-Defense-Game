@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="2019.12.11" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="15" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" name="walls" tilewidth="32" tileheight="32" tilecount="7" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="32" source="sample_tiles/clay_tile_64_01.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="32" source="sample_tiles/grass_01_tile_64_01.png"/>
+  </tile>
+  <tile id="2">
+   <image width="32" height="32" source="sample_tiles/ice_tile_64_01.png"/>
+  </tile>
+  <tile id="3">
+   <image width="32" height="32" source="sample_tiles/orc2.png"/>
+  </tile>
+  <tile id="4">
+   <image width="32" height="32" source="sample_tiles/paving_01_tile_64_02.png"/>
+  </tile>
+  <tile id="5">
+   <image width="32" height="32" source="sample_tiles/paving_02_tile_64_01.png"/>
+  </tile>
+  <tile id="6">
+   <image width="32" height="32" source="sample_tiles/sand_01_tile_64_01.png"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="traverse" width="15" height="15">
+  <data encoding="csv">
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+</data>
+ </layer>
+ <layer id="3" name="walls" width="15" height="15">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,
+0,0,0,0,0,6,6,6,6,6,6,0,0,0,0,
+0,0,0,0,0,6,6,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,6,6,6,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,6,6,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
