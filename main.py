@@ -32,7 +32,7 @@ class TiledWindow(arcade.Window):
         self.start = 0.0
         self.frame = 0
         self.townHealth = 10000
-        self.currency = 700
+        self.currency = 400
         self.enemiesKilled = 0
         self.tower3Damage = 25
         self.tower4Damage = 25
@@ -137,7 +137,7 @@ class TiledWindow(arcade.Window):
             self.currentTower = tower3
             self.tower3List.append(tower3)
             self.currency -= 300
-        elif key == arcade.key.F and self.currency >= 400:
+        elif key == arcade.key.F and self.currency >= 500:
             tower4 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower4.png')
             self.currentTower = tower4
             self.tower4List.append(tower4)
