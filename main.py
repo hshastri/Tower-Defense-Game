@@ -12,11 +12,12 @@ class TiledWindow(arcade.Window):
         super().__init__(WIDTH, HEIGHT, "Tiled Map")
         self.mapLocation = pathlib.Path.cwd()/'Assets'/'map.tmx'
         self.mapLocation2 = pathlib.Path.cwd()/'Assets'/'map2.tmx'
+        self.mapLocation3 = pathlib.Path.cwd() / 'Assets' / 'map3.tmx'
         self.mapList = None
         self.wallList = None
         self.enemy: arcade.AnimatedTimeBasedSprite = None
         self.enemy_list: arcade.SpriteList = None
-        self.enemyMoveSpeed = 1.1
+        self.enemyMoveSpeed = 1.0
         self.displayTower1 = None
         self.displayTower2 = None
         self.displayTower3 = None
@@ -342,8 +343,13 @@ class TiledWindow(arcade.Window):
         if self.townHealth <= 0:
             self.isGameOver = True
 
-        if self.enemiesKilled > 20:
+        if self.enemiesKilled > 10:
             mapLayer = arcade.tilemap.read_tmx(str(self.mapLocation2))
+            self.mapList = arcade.tilemap.process_layer(mapLayer, 'traverse', 1)
+            self.wallList = arcade.tilemap.process_layer(mapLayer, 'walls', 1)
+
+        if self.enemiesKilled > 20:
+            mapLayer = arcade.tilemap.read_tmx(str(self.mapLocation3))
             self.mapList = arcade.tilemap.process_layer(mapLayer, 'traverse', 1)
             self.wallList = arcade.tilemap.process_layer(mapLayer, 'walls', 1)
 
