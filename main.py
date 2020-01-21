@@ -295,8 +295,8 @@ class TiledWindow(arcade.Window):
                                 bullet.center_x = tower.center_x
                                 bullet.center_y = tower.center_y
                                 bullet.angle = math.degrees(angle)
-                                bullet.change_x = math.cos(angle) * 10
-                                bullet.change_y = math.sin(angle) * 10
+                                bullet.change_x = math.cos(angle) * 20
+                                bullet.change_y = math.sin(angle) * 20
                                 self.bulletList2.append(bullet)
                                 arcade.play_sound(self.shotGunShot)
 
