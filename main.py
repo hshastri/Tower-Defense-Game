@@ -32,17 +32,18 @@ class TiledWindow(arcade.Window):
         self.start = 0.0
         self.frame = 0
         self.townHealth = 10000
-        self.currency = 350
+        self.currency = 900
         self.enemiesKilled = 0
         self.tower3Damage = 25
         self.tower4Damage = 25
         self.isGameOver = False
-        self.magnumShot = arcade.sound.load_sound('/Users/apple/Desktop/TheGame/Assets/magnum.wav')
-
+        path = pathlib.Path.cwd()/'Assets'/'magnum.wav'
+        #self.magnumShot = arcade.sound.load_sound('/Users/apple/Desktop/TheGame/Assets/magnum.wav')
+        self.magnumShot = arcade.sound.load_sound(str(path))
         #self.nineShot = arcade.sound.load_sound(pathlib.Path.cwd() / 'Assets' / 'nine.wav')
-
-        self.shotGunShot = arcade.sound.load_sound('/Users/apple/Desktop/TheGame/Assets/shotgun_blast.wav')
-
+        path2 = pathlib.Path.cwd()/'Assets'/'shotgun_blast.wav'
+        #self.shotGunShot = arcade.sound.load_sound('/Users/apple/Desktop/TheGame/Assets/shotgun_blast.wav')
+        self.shotGunShot = arcade.sound.load_sound(str(path2))
 
     def setup(self):
         map = arcade.tilemap.read_tmx(str(self.mapLocation))
