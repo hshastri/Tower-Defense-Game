@@ -12,6 +12,3 @@ The game is essentially a tower defense game.
 The game starts with the zombies walking across the screen. You are given the initial currency and the town health.
 The goal is to prevent the zombies to go across your village by the assets provided, as it would affect the town health.
 The more enemies you kill, the more the currency you earn in order to buy more assets.
-
-PS:
-*In order to make the sounds work edit the code by changing the directory paths* 
