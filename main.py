@@ -32,7 +32,7 @@ class TiledWindow(arcade.Window):
         self.start = 0.0
         self.frame = 0
         self.townHealth = 10000
-        self.currency = 900
+        self.currency = 400
         self.enemiesKilled = 0
         self.tower3Damage = 25
         self.tower4Damage = 25
@@ -334,7 +334,7 @@ class TiledWindow(arcade.Window):
 
                     enemy.kill()
                     self.enemiesKilled += 1
-                    self.currency += 50
+                    self.currency += 80
                     for bullet in enemyGetsHit:
                         if bullet.center_x == enemy.center_x and bullet.center_y == enemy.center_y:
                             bullet.kill()
