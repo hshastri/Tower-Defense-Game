@@ -32,7 +32,7 @@ class TiledWindow(arcade.Window):
         self.start = 0.0
         self.frame = 0
         self.townHealth = 1000
-        self.currency = 300
+        self.currency = 500
         self.enemiesKilled = 0
         self.tower3Damage = 25
         self.tower4Damage = 25
@@ -111,7 +111,7 @@ class TiledWindow(arcade.Window):
 
 
         if self.isGameOver == True and self.enemiesKilled < 60:
-            string1 = "YOU LOST! Game Over! Score: " + str(self.enemiesKilled)
+            string1 = "YOU LOST! Score: " + str(self.enemiesKilled)
             print("Game Over")
             arcade.draw_text(string1, WIDTH // 2 - 100, HEIGHT // 2, arcade.color.BLACK, 20)
 
@@ -122,7 +122,7 @@ class TiledWindow(arcade.Window):
 
 
         string = "Town Health: " + str(self.townHealth) + "; Currency earned: " + str(self.currency) + "; Enemies killed: " + str(self.enemiesKilled)
-        arcade.draw_text("$100         $200             $400             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 10)
+        arcade.draw_text("$100         $150             $300             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 10)
         arcade.draw_text(" [A]              [S]              [D]                 [F]", 25 * 4, 1.5 * 32, arcade.color.BLACK, 10)
         arcade.draw_text(string, 25 * 2, 25, arcade.color.RED, 12)
 
@@ -134,7 +134,7 @@ class TiledWindow(arcade.Window):
             self.currentTower = tower1
             self.tower1List.append(tower1)
             self.currency -= 100
-        elif key == arcade.key.S and self.currency >= 200:
+        elif key == arcade.key.S and self.currency >= 150:
             tower2 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'towerTwo.png')
             self.currentTower = tower2
             self.tower2List.append(tower2)
@@ -217,7 +217,7 @@ class TiledWindow(arcade.Window):
                         if self.distance_between_sprites(enemy, tower) <= 32.0:
                             enemy.kill()
                             self.enemiesKilled += 1
-                            self.currency += 200
+                            self.currency += 30
 
             elif len(self.enemy_list) < len(self.tower2List):
                 for tower in self.tower2List:
@@ -225,7 +225,7 @@ class TiledWindow(arcade.Window):
                         if self.distance_between_sprites(enemy, tower) <= 32.0:
                             enemy.kill()
                             self.enemiesKilled += 1
-                            self.currency += 200
+                            self.currency += 30
 
         if len(self.tower3List) != 0:
 
@@ -269,7 +269,7 @@ class TiledWindow(arcade.Window):
             if len(self.enemy_list) >= len(self.tower4List):
                 for enemy in self.enemy_list:
                     for tower in self.tower4List:
-                        if self.distance_between_sprites(enemy, tower) <= 60.0:
+                        if self.distance_between_sprites(enemy, tower) <= 80.0:
                             x = enemy.center_x - tower.center_x
                             y = enemy.center_y - tower.center_y
                             angle = math.atan2(y, x)
@@ -286,7 +286,7 @@ class TiledWindow(arcade.Window):
             elif len(self.enemy_list) < len(self.tower4List):
                 for tower in self.tower4List:
                     for enemy in self.enemy_list:
-                        if self.distance_between_sprites(enemy, tower) <= 60.0:
+                        if self.distance_between_sprites(enemy, tower) <= 80.0:
                             x = enemy.center_x - tower.center_x
                             y = enemy.center_y - tower.center_y
                             angle = math.atan2(y, x)
@@ -345,7 +345,7 @@ class TiledWindow(arcade.Window):
 
                     enemy.kill()
                     self.enemiesKilled += 1
-                    self.currency += 0
+                    self.currency += 20
                     for bullet2 in enemyGetsHit2:
                         if bullet2.center_x == enemy.center_x and bullet2.center_y == enemy.center_y:
                             bullet2.kill()
