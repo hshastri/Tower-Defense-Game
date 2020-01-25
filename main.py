@@ -326,7 +326,7 @@ class TiledWindow(arcade.Window):
                 enemy.center_x = enemy.center_x + 0
 
             if enemy.center_x <= 0:
-                self.townHealth -= 200
+                self.townHealth -= 50
                 enemy.kill()
                 continue
 
