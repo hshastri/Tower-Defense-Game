@@ -138,7 +138,7 @@ class TiledWindow(arcade.Window):
             tower2 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'towerTwo.png')
             self.currentTower = tower2
             self.tower2List.append(tower2)
-            self.currency -= 200
+            self.currency -= 150
         elif key == arcade.key.D and self.currency >= 300:
             tower3 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower3.png')
             self.currentTower = tower3
@@ -148,7 +148,7 @@ class TiledWindow(arcade.Window):
             tower4 = arcade.Sprite(pathlib.Path.cwd() / 'Assets' / 'tower4.png')
             self.currentTower = tower4
             self.tower4List.append(tower4)
-            self.currency -= 400
+            self.currency -= 500
 
     def on_key_release(self, symbol: int, modifiers: int):
         pass
