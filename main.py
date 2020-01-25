@@ -121,7 +121,7 @@ class TiledWindow(arcade.Window):
             arcade.draw_text(string, WIDTH // 2 - 100, HEIGHT // 2, arcade.color.BLACK, 20)
 
 
-        string = "Town Health: " + str(self.townHealth) + "; Currency earned: " + str(self.currency) + "; Enemies killed: " + str(self.enemiesKilled)
+        string = "Town Health: " + str(self.townHealth) + "; Currency earned: $" + str(self.currency) + "; Enemies killed: " + str(self.enemiesKilled)
         arcade.draw_text("$100         $150             $300             $500", 25 * 4, 2 * 32, arcade.color.BLACK, 10)
         arcade.draw_text(" [A]              [S]              [D]                 [F]", 25 * 4, 1.5 * 32, arcade.color.BLACK, 10)
         arcade.draw_text(string, 25 * 2, 25, arcade.color.RED, 12)
