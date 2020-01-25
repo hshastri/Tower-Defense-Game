@@ -151,12 +151,16 @@ class TiledWindow(arcade.Window):
             self.currency -= 500
 
     def on_key_release(self, symbol: int, modifiers: int):
-        pass
+        self.currentTower = None
 
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
         if button == arcade.MOUSE_BUTTON_LEFT:
             self.currentTower.center_x = x
             self.currentTower.center_y = y
+
+    def on_mouse_release(self, x: float, y: float, button: int,
+                         modifiers: int):
+        self.currentTower = None
 
     def distance_between_sprites(self, sprite1: arcade.AnimatedTimeBasedSprite, sprite2: arcade.Sprite):
         x_diff = (sprite1.center_x - sprite2.center_x) ** 2
@@ -217,7 +221,7 @@ class TiledWindow(arcade.Window):
                         if self.distance_between_sprites(enemy, tower) <= 32.0:
                             enemy.kill()
                             self.enemiesKilled += 1
-                            self.currency += 30
+                            self.currency += 50
 
             elif len(self.enemy_list) < len(self.tower2List):
                 for tower in self.tower2List:
@@ -225,7 +229,7 @@ class TiledWindow(arcade.Window):
                         if self.distance_between_sprites(enemy, tower) <= 32.0:
                             enemy.kill()
                             self.enemiesKilled += 1
-                            self.currency += 30
+                            self.currency += 50
 
         if len(self.tower3List) != 0:
 
@@ -334,7 +338,7 @@ class TiledWindow(arcade.Window):
 
                     enemy.kill()
                     self.enemiesKilled += 1
-                    self.currency += 25
+                    self.currency += 30
                     for bullet in enemyGetsHit:
                         if bullet.center_x == enemy.center_x and bullet.center_y == enemy.center_y:
                             bullet.kill()
