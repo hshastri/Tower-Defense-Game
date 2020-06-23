@@ -2,12 +2,12 @@
 
 Execute the following command to execute the code:
 
-'''
+```
 git clone https://github.com/hshastri/tower-defense-game.git ;
 cd theGame;
 pip install arcade; 
 python main.py
-'''
+```
 
 The game is essentially a tower defense game. 
 
