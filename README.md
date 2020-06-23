@@ -18,4 +18,4 @@ python main.py
 ## User Interface for players
 
 To select the tower you want to place, press the corresponding key to the tower. Using your mouse, place the tower on the desired location on the map. PS: You are only going to be able buy towers you can afford. 
-![](assets/gamescreenshot.png)
+<img src="assets/screenshot.png">
