@@ -11,8 +11,8 @@ Execute the following commands to run the game:
 ```
 git clone https://github.com/hshastri/tower-defense-game.git
 cd tower-defense-game
-pip install arcade
-python main.py
+pip3 install arcade
+python3 main.py
 ```
 
 ## User Interface for players
