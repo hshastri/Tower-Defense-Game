@@ -1,4 +1,4 @@
-# theGame
+# Tower Defense Game - Zombie Hunt
 
 Execute the following command to execute the code:
 
