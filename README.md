@@ -18,5 +18,11 @@ python main.py
 ## User Interface for players
 
 To select the tower you want to place, press the corresponding key to the tower. Using your mouse, place the tower on the desired location on the map. PS: You are only going to be able buy towers you can afford. For example in the following screenshot, since the player has enough currency to afford tower D, the player can press D on the keyboard and place the tower on the map using the mouse.
+
 <img src="Assets/gamescreenshot.png">
 
+## Game Goal
+
+If you managed to kill 60 zombies before your town health reaches zero, you should see this:
+
+<img src="Assets/gamescreenshot2.png">
