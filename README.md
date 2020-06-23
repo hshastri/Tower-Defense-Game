@@ -6,7 +6,7 @@ Your goal is to prevent the zombies in the town from reaching their destination 
 
 ## Installation
 
-Execute the following command to run the game:
+Execute the following commands to run the game:
 
 ```
 git clone https://github.com/hshastri/tower-defense-game.git
